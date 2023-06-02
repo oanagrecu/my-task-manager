@@ -34,20 +34,20 @@ let tasks = ["1. to see all your tasks","2. to add a task", "3. to delete a task
 function taskManagerDisplay() {
   console.log("Welcome to your task manager. Press:");
   for(let i = 0; i < tasks.length; i++)
-    console.log(tasks[i]);
+    console.log(`${i + 1}. ${tasks[i]}`);
+   
 }
 
 function SelectChoice(choice) {
   switch (choice) {
     case "1":
       taskManagerDisplay();
-      
       break;
     case "2":
       addNewTask();
       break;
     case "3":
-      console.log("3: Delete a task");
+     deleteTask();
       break;
     case "4":
       console.log("4: Mark a task as done");
@@ -79,15 +79,24 @@ function addNewTask() {
     for (let i = 0; i < tasks.length; i++) {
       console.log(`${i + 1}. ${tasks[i]}`);
     }
-    printMenuChoice();
+   printMenuChoice();
   });
 
 }
 
-// function deleteTask(){
-//   for(let i = 0; i< tasks.length; i++){
+function deleteTask() {
+  rl.question("Enter the task number to delete: ", (taskNumber) => {
+    const index = parseInt(taskNumber) - 1;
+    if (index >= 0 && index < tasks.length) {
+      tasks.splice(index-1, 1);
+      console.log("Task deleted successfully.");
+    } else {
+      console.log("Invalid task number.");
+    }
+    taskManagerDisplay();
+    printMenuChoice();
+  });
+}
 
-//   }
-// }
 taskManagerDisplay();
 printMenuChoice();
